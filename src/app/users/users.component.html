@@ -1,0 +1,12 @@
+<h3>Add new server</h3>
+<hr>
+<input type="text"
+  class="form-control"
+  [(ngModel)]="userName">
+<hr>
+<button
+  class="btn btn-primary"
+  [disabled]="userName.length == 0"
+  (click)="resetUserName()">Add New User</button>
+  <hr>
+  <p>{{userName}}</p>
