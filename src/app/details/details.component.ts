@@ -21,11 +21,15 @@ export class DetailsComponent implements OnInit {
     this.buttonClicks.push(`${this.counter}`);
   }
 
-  getBackGroundColor() {
-    if (this.counter > 4) {
+  getBackGroundColor(counter) {
+    if (counter > 4) {
       return 'blue';
-    } else {
-      return 'white';
+    }
+  }
+
+  getClass(counter) {
+    if (counter > 4) {
+      return true;
     }
   }
 }

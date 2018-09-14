@@ -7,4 +7,5 @@
 <hr>
 <p *ngIf="displayContent">Secret content</p>
 <p *ngFor="let buttonClick of buttonClicks" 
-  [ngStyle]="{backGroundColor: getBackGroundColor()}">{{buttonClick}}</p>
+  [ngStyle]="{backgroundColor: getBackGroundColor(buttonClick)}"
+  [ngClass]="{white: getClass(buttonClick)}">{{buttonClick}}</p>
