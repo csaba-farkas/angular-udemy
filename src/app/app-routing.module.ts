@@ -1,3 +1,6 @@
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
+import { AuthGuard } from './auth-guard.service';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
@@ -7,6 +10,7 @@ import { ServersComponent } from "./servers/servers.component";
 import { ServerComponent } from "./servers/server/server.component";
 import { EditServerComponent } from "./servers/edit-server/edit-server.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { ServerResolver } from './servers/server/server.resolver';
 
 const appRoutes: Routes = [
     {
@@ -16,6 +20,7 @@ const appRoutes: Routes = [
     {
         path: 'users',
         component: UsersComponent,
+        canActivateChild: [AuthGuard],
         children: [
             {
                 path: ':id/:name',
@@ -26,20 +31,28 @@ const appRoutes: Routes = [
     {
         path: 'servers',
         component: ServersComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: ':id',
-                component: ServerComponent
+                component: ServerComponent,
+                resolve: {server: ServerResolver}
             },
             {
                 path: ':id/edit',
-                component: EditServerComponent
+                component: EditServerComponent,
+                canDeactivate: [CanDeactivateGuard]
             }
         ]
     }, 
+    // {
+    //     path: 'not-found',
+    //     component: PageNotFoundComponent
+    // }, 
     {
         path: 'not-found',
-        component: PageNotFoundComponent
+        component: ErrorPageComponent,
+        data: {message: 'Page not found... said the error-page!'}
     },
     {
         path: '**',
@@ -50,6 +63,7 @@ const appRoutes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(appRoutes)
+        //RouterModule.forRoot(appRoutes, {useHash: true})    // useHash can support older browsers or webservers that can't be configured
     ],
     exports: [
         RouterModule
