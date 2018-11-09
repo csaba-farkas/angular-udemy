@@ -50,6 +50,10 @@ export class AppComponent {
         this.user.secretQuestion = this.form.value.secret;
         this.user.answer = this.form.value.questionAnswer;
         this.user.gender = this.form.value.gender;
+
+        // reset the form
+        this.form.reset();
+        this.form.form.controls['secret'].setValue('pet');
     }
 
     // alternative option is using the local reference grabbed by ViewChild
