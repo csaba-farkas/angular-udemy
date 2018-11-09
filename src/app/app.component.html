@@ -1,106 +1,74 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-
-        <!-- Use local reference #form to grab ngForm -->
-        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-
-            <!-- We can create groups in our forms by using the ngModelGroup attribute -->
-            <div id="user-data" 
-                ngModelGroup="userData"
-                #userD="ngModelGroup">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <form (ngSubmit)="onSubmitForm(frm)" #frm="ngForm">
+                <!-- Email form-group -->
                 <div class="form-group">
-                    <label for="username">Username</label>
-
-                    <!-- Look at ngModel and the name attribute - that's where the magic happens -->
-                    <!-- Angular detects 'required' attribute and configures the form automatically -->
-                    <input 
-                        type="text" 
-                        id="username" 
-                        class="form-control"
-                        ngModel
-                        name="username"
-                        required>
-                </div>
-                <button 
-                    class="btn btn-default" 
-                    type="button"
-                    (click)="suggestUserName()">Suggest an Username</button>
-                <div class="form-group">
-                    <label for="email">Mail</label>
-
-                    <!-- Look at the handy email attribute!! -->
-                    <!-- Also look at the #email local variable with ngModle -->
+                    <label for="mail">Email</label>
                     <input 
                         type="email" 
-                        id="email" 
+                        id="mail" 
                         class="form-control"
                         ngModel
-                        name="email"
+                        name="mail"
                         required
                         email
-                        #email="ngModel">
-                    <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email address</span>
+                        #mail="ngModel">
+                    <span class="help-block" *ngIf="!mail.valid && mail.touched">Please enter a valid email address</span>
                 </div>
-            </div>
-            <p *ngIf="!userD.valid && userD.touched">User data is invalid!</p>
-            <div class="form-group">
-                <label for="secret">Secret Questions</label>
+                <!-- End of email form-group -->
 
-                <!-- Here we bind ngModel to defaultQuestion. defaultQuestion can be either pet or teacher in this case.
-                    Look at the two options in select and see their value attributes.-->
-                <select 
-                    id="secret" 
-                    class="form-control"
-                    [ngModel]="defaultQuestion"
-                    name="secret">
-                    <option value="pet">Your first Pet?</option>
-                    <option value="teacher">Your first teacher?</option>
-                </select>
-            </div>
+                <!-- Subscription dropdown form-group-->
+                <div class="form-group">
+                    <label for="subscriptionType">Subscription</label>
+    
+                    <select 
+                        id="subscriptionType" 
+                        class="form-control"
+                        [ngModel]="defaultSubscription"
+                        name="subscriptionType">
+                        <option value="basic">Basic</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="pro">Pro</option>
+                    </select>
+                </div>
+                <!-- End of subscription dropdown form-group -->
 
-            <!-- Here comes the two-way binding of ngModule => can output the value instantly -->
-            <div class="form-group">
-                <textarea
-                    name="questionAnswer"
-                    rows="3"
-                    class="form-control"
-                    [(ngModel)]="answer"></textarea>
-            </div>
-            <p>Your reply: {{ answer }}</p>
-
-            <!-- This is how we add radio buttons -->
-            <div class="radio" *ngFor="let gender of genders">
-                <label>
+                <!-- Password form-group -->
+                <div class="form-group">
+                    <label for="password">Password</label>                    
                     <input 
-                        type="radio"
-                        name="gender"
-                        ngModel
-                        [value]="gender"
-                        required>
-                    {{ gender }}
-                </label>
+                        type="password" 
+                        id="password" 
+                        class="form-control"
+                        [ngModel]=""
+                        name="password"
+                        required
+                        password
+                        #password="ngModel">
+                    <span class="help-block" 
+                        *ngIf="(password.value === null || password.value?.length === 0) && password.touched">
+                        Please enter a password
+                    </span>
+                </div>
+                <!-- End of password form-group -->
+
+                <!-- Submit button -->
+                <button 
+                    class="btn btn-primary" 
+                    type="submit"
+                    [disabled]="!frm.valid">Submit</button>
+                <!-- End of Submit button -->
+            </form>
+
+            <!-- Output div -->
+            <div *ngIf="submitted">
+                <h3>Your details</h3>
+                <p>Email: {{ subscribedUser.email }}</p>
+                <p>Subscription type: {{ subscribedUser.subsciptionType }}</p>
+                <p>Password: {{ subscribedUser.password }}</p>
             </div>
-
-            <!-- Bind to the 'disabled' attribute and use the local f variable to check if the form is valid-->
-            <button 
-                class="btn btn-primary" 
-                type="submit"
-                [disabled]="!f.valid">Submit</button>
-        </form>
-
-        <hr>
-
-        <h3>Your data</h3>
-        <div class="row" *ngIf="submitted">
-            <div class="col-xs-12">
-                <p>Username: {{ user.username }} </p>
-                <p>Email: {{ user.email }}</p>
-                <p>Secret Question: {{ user.secretQuestion }}</p>
-                <p>Answer: {{ user.answer }}</p>
-                <p>Gender: {{ user.gender }}</p>
-            </div>
+            <!-- End of output div -->
         </div>
-    </div>
-  </div>
+    </div>  
 </div>
