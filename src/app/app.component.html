@@ -35,10 +35,12 @@
             </div>
             <div class="form-group">
             <label for="secret">Secret Questions</label>
+            <!-- Here we bind ngModel to defaultQuestion. defaultQuestion can be either pet or teacher in this case.
+                 Look at the two options in select and see their value attributes.-->
             <select 
                 id="secret" 
                 class="form-control"
-                ngModel
+                [ngModel]="defaultQuestion"
                 name="secret">
                 <option value="pet">Your first Pet?</option>
                 <option value="teacher">Your first teacher?</option>
