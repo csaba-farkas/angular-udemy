@@ -60,6 +60,19 @@
                     [(ngModel)]="answer"></textarea>
             </div>
             <p>Your reply: {{ answer }}</p>
+
+            <!-- This is how we add radio buttons -->
+            <div class="radio" *ngFor="let gender of genders">
+                <label>
+                    <input 
+                        type="radio"
+                        name="gender"
+                        ngModel
+                        [value]="gender"
+                        required>
+                    {{ gender }}
+                </label>
+            </div>
             <!-- Bind to the 'disabled' attribute and use the local f variable to check if the form is valid-->
             <button 
                 class="btn btn-primary" 
