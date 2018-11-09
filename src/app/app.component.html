@@ -1,14 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+
         <!-- Use local reference #form to grab ngForm -->
         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
             <!-- We can create groups in our forms by using the ngModelGroup attribute -->
             <div id="user-data" 
                 ngModelGroup="userData"
                 #userD="ngModelGroup">
                 <div class="form-group">
                     <label for="username">Username</label>
+
                     <!-- Look at ngModel and the name attribute - that's where the magic happens -->
                     <!-- Angular detects 'required' attribute and configures the form automatically -->
                     <input 
@@ -19,9 +22,13 @@
                         name="username"
                         required>
                 </div>
-                <button class="btn btn-default" type="button">Suggest an Username</button>
+                <button 
+                    class="btn btn-default" 
+                    type="button"
+                    (click)="suggestUserName()">Suggest an Username</button>
                 <div class="form-group">
                     <label for="email">Mail</label>
+
                     <!-- Look at the handy email attribute!! -->
                     <!-- Also look at the #email local variable with ngModle -->
                     <input 
@@ -39,6 +46,7 @@
             <p *ngIf="!userD.valid && userD.touched">User data is invalid!</p>
             <div class="form-group">
                 <label for="secret">Secret Questions</label>
+
                 <!-- Here we bind ngModel to defaultQuestion. defaultQuestion can be either pet or teacher in this case.
                     Look at the two options in select and see their value attributes.-->
                 <select 
@@ -73,6 +81,7 @@
                     {{ gender }}
                 </label>
             </div>
+
             <!-- Bind to the 'disabled' attribute and use the local f variable to check if the form is valid-->
             <button 
                 class="btn btn-primary" 
