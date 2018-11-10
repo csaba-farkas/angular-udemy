@@ -33,6 +33,20 @@ export class AppComponent implements OnInit {
                 console.log(value);
             }
         );
+        this.signupForm.setValue({
+            'userData': {
+                'username': '',
+                'email': 'csabafarkas@gmail.com'
+            },
+            'gender': 'male',
+            'hobbies': []
+        });
+
+        this.signupForm.patchValue({
+            'userData': {
+                'username': 'Csaba'
+            }
+        })
     }
 
     onAddHobby() {
@@ -46,6 +60,15 @@ export class AppComponent implements OnInit {
         console.log(this.signupForm.value.username);
         console.log(this.signupForm.value.email);
         console.log(this.signupForm.value.gender);
+
+        this.signupForm.reset({
+            'userData': {
+                'username': '',
+                'email': ''
+            },
+            'gender': 'male',
+            'hobbies': []
+        })
     }
 
     // pay attention to the return type: key -value pairs
